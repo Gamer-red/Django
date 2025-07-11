@@ -1,30 +1,32 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import project
-from django.shortcuts import render
-# Create your views hee.
+from .models import project, Task  # Importar con mayúscula correcta
 
 def index(request):
     title = 'Django course' 
-    return render (request,'index.html',{
+    return render(request, 'index.html', {
         'title': title
     })
 
 def hello(request, username):
-    return HttpResponse("<h2>Hello<h2> %s </h2>" % username)
+    return HttpResponse("<h2>Hello</h2> %s" % username)
 
 def about(request):
-    username ={
+    username = {
         'name': 'jarol'
     }
-    return render(request, 'about.html',{
+    return render(request, 'about.html', {
         'username': username
     })
 
 def projects(request):
-    Projects = list(project.objects.values())
-    return render(request, 'projects.html')
+    projects = project.objects.all()
+    return render(request, 'projects.html', {
+        'projects': projects
+    })
 
 def tasks(request):
-    # task = Task.objects.
-    return render(request, 'task.html')
+    tasks = Task.objects.all()
+    return render(request, 'task.html', {
+        'tasks': tasks
+    })
