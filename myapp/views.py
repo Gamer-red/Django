@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import project, Task  # Importar con mayúscula correcta
+from .forms import CreateNewTask
 
 def index(request):
     title = 'Django course' 
@@ -30,3 +31,16 @@ def tasks(request):
     return render(request, 'task.html', {
         'tasks': tasks
     })
+
+def create_task(request):
+    if request.method == 'POST':
+        form = CreateNewTask(request.POST)
+        if form.is_valid():
+            title = form.cleaned_data['title']
+            description = form.cleaned_data['description']
+            Task.objects.create(title=title, description=description, project_id=2)
+            return redirect('/tasks/')  # Redirige a tu lista de tareas u otra vista
+    else:
+        form = CreateNewTask()
+
+    return render(request, 'create_task.html', {'form': form})
