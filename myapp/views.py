@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import project, Task  # Importar con mayúscula correcta
-from .forms import CreateNewTask
+from .models import project, Task # Importar con mayúscula correcta
+from .forms import CreateNewTask,CreateNewProject
 
 def index(request):
     title = 'Django course' 
@@ -44,3 +44,16 @@ def create_task(request):
         form = CreateNewTask()
 
     return render(request, 'create_task.html', {'form': form})
+
+def create_project(request):
+   if request.method == 'GET':
+       return render(request, 'create_project.html',{
+           'form': CreateNewProject()
+       })
+   else:
+       print(request.POST)
+       projects = project.objects.create(name=request.POST["name"])
+       print(projects)
+       return render(request,'create_project.html',{
+           'form': CreateNewProject()
+       })
