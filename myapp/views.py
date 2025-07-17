@@ -39,7 +39,7 @@ def create_task(request):
             title = form.cleaned_data['title']
             description = form.cleaned_data['description']
             Task.objects.create(title=title, description=description, project_id=2)
-            return redirect('/tasks/')  # Redirige a tu lista de tareas u otra vista
+            return redirect("tasks")  # Redirige a tu lista de tareas u otra vista
     else:
         form = CreateNewTask()
 
@@ -56,4 +56,6 @@ def create_project(request):
        print(projects)
        return render(request,'create_project.html',{
            'form': CreateNewProject()
-       })
+       }, redirect("projects")
+       )
+   
