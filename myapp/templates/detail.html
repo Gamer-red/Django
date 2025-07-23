@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block contend %}
+<h1>{{project}}</h1>
+
+{% for task in task %}
+<div class="card">
+    <h1>{{task.title}}</h1>
+</div>
+{% endfor %}
+
+{% endblock %}

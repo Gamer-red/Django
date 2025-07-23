@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .models import project, Task # Importar con mayúscula correcta
 from .forms import CreateNewTask,CreateNewProject
@@ -58,4 +58,11 @@ def create_project(request):
            'form': CreateNewProject()
        }, redirect("projects")
        )
-   
+
+def project_detail(request, id):
+    Project= get_object_or_404(project, id=id)
+    task= Task.objects.filter(project_id=id)
+    return render (request, 'detail.html', {
+        'project': Project,
+        'task': task
+    })

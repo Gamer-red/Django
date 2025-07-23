@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{% static '/styles/styless.css'%}">
 </head>
 <body>
-    <nav>
+    <nav class="navbar conteiner">
     <ul>
         <li>
             <a href="/">home</a>
@@ -30,7 +30,11 @@
         </li>
     </ul>
 </nav>
-{% block contend%}
-{% endblock %}
+
+<main class="conteiner">
+    {% block contend%}
+    {% endblock %}
+</main>
+
 </body>
 </html>
